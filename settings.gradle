@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':androidxorsupport'
 rootProject.name='AndroidTestDemo'

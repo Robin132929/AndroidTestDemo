@@ -1,12 +1,12 @@
 package com.robin.testdemo.activityjump;
 
-import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.robin.testdemo.R;
 
-public class ActivityB extends AppCompatActivity {
+public class ActivityB extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

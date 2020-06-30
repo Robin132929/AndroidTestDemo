@@ -4,64 +4,54 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.robin.testdemo.utils.Logger.AndroidLogAdapter;
-import com.robin.testdemo.utils.Logger.Logger;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-public class App extends Application {
+public class App extends Application implements Application.ActivityLifecycleCallbacks {
+    private static final String TAG = "TestApp";
     @Override
     public void onCreate() {
         super.onCreate();
-        Logger.addLogAdapter(new AndroidLogAdapter());
-        this.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
-             Logger.i("onActivityCreated --- "+activity.getComponentName());
-            }
-
-            @Override
-            public void onActivityStarted(@NonNull Activity activity) {
-                Logger.i("onActivityStarted --- "+activity.getComponentName());
-
-            }
-
-            @Override
-            public void onActivityResumed(@NonNull Activity activity) {
-                Logger.i("onActivityResumed --- "+activity.getComponentName());
-
-            }
-
-            @Override
-            public void onActivityPaused(@NonNull Activity activity) {
-                Logger.i("onActivityPaused --- "+activity.getComponentName());
-
-            }
-
-            @Override
-            public void onActivityStopped(@NonNull Activity activity) {
-                Logger.i("onActivityStopped --- "+activity.getComponentName());
-
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
-                Logger.i("onActivitySaveInstanceState --- "+activity.getComponentName());
-
-            }
-
-            @Override
-            public void onActivityDestroyed(@NonNull Activity activity) {
-                Logger.i("onActivityDestroyed --- "+activity.getComponentName());
-
-            }
-        });
+        this.registerActivityLifecycleCallbacks(this);
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+    }
+
+    @Override
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        Log.d(TAG, "onActivityCreated: "+activity.getComponentName());
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+        Log.d(TAG, "onActivityStarted: "+activity.getComponentName());
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+        Log.d(TAG, "onActivityResumed: "+activity.getComponentName());
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+        Log.d(TAG, "onActivityPaused: "+activity.getComponentName());
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+        Log.d(TAG, "onActivityStopped: "+activity.getComponentName());
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        Log.d(TAG, "onActivitySaveInstanceState: "+activity.getComponentName());
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+        Log.d(TAG, "onActivityDestroyed: "+activity.getComponentName());
     }
 }

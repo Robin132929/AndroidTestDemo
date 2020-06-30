@@ -1,16 +1,11 @@
 package com.robin.testdemo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.CacheControl;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.EventListener;
-import okhttp3.OkHttpClient;
-import okhttp3.Protocol;
-import okhttp3.Request;
-import okhttp3.Response;
+import dalvik.system.DexClassLoader;
 
+
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,21 +23,14 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.View;
 
-import com.robin.testdemo.activityjump.ActivityA;
-import com.robin.testdemo.okhttpTest.OkhttpTest;
+import com.robin.androidxorsupport.TestAndroidxorSipport;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     IntentFilter filter;
     SmsReceiver receiver;
@@ -50,11 +38,65 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startActivity(new Intent(this,ContentActivity.class));
         findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, ActivityA.class);
-                startActivity(intent);
+                try {
+
+                    Class<?> cl =   Class.forName("androidx.core.content.ContextCompat");
+                    if(cl!=null){
+                       Method method= cl.getDeclaredMethod("checkSelfPermission",Context.class,String.class);
+                     int result= (int) method.invoke(null,getApplication(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        Log.i("TestAndroidxorSipport", "onClick1: "+ result);
+
+                    }
+                } catch (Throwable e) {
+                    Log.i("TestAndroidxorSipport", "onClick1: "+  e.getMessage());
+
+                    try {
+                        Class<?> cl =   Class.forName("android.support.v4.content.ContextCompat");
+                        if(cl!=null){
+                            Method method= cl.getDeclaredMethod("checkSelfPermission",Context.class,String.class);
+                            int result= (int) method.invoke(null,getApplication(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                            Log.i("TestAndroidxorSipport", "onClick: "+ result);
+
+                        }
+                    } catch (Throwable ex) {
+                        Log.i("TestAndroidxorSipport", "onClick: "+  e.getMessage());
+
+                        ex.printStackTrace();
+                    }
+
+
+                }
+//                TestAndroidxorSipport.Test(getApplicationContext());
+//                File cache=null;
+//                Method method;
+//                File dexDir = getApplicationContext().getDir("libs", Context.MODE_PRIVATE);
+//                String moduleName="JRVang_1.0.2.dex";
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//                     cache=getApplicationContext().getCodeCacheDir();
+//                }
+//                File modulefile=new File(dexDir,moduleName);
+//                DexClassLoader   dexClassLoader = new DexClassLoader(modulefile.getAbsolutePath(), cache.getAbsolutePath(), null, getApplicationContext().getClassLoader());
+//
+//                try {
+//                    Class<?> cl =   dexClassLoader.loadClass("com.jumpraw.vang.JRVang");
+//                    method = cl.getDeclaredMethod("initialize",Context.class,String.class);
+//                    method.invoke(null, getApplication(),"10000");
+//                } catch (ClassNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (NoSuchMethodException e) {
+//                    e.printStackTrace();
+//                } catch (IllegalAccessException e) {
+//                    e.printStackTrace();
+//                } catch (InvocationTargetException e) {
+//                    e.printStackTrace();
+//                }
+//                Intent intent=new Intent(MainActivity.this, ActivityA.class);
+//                startActivity(intent);
+//                JRVang.initialize(getApplicationContext(),"10000");
             }
         });
         filter=new IntentFilter();
