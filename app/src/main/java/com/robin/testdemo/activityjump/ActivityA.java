@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 import com.robin.testdemo.MainActivity;
 import com.robin.testdemo.R;
+import com.robin.testdemo.collection.TestQueue;
 import com.robin.testdemo.collection.TestSet;
+import com.robin.testdemo.execption.TestExecption;
+import com.robin.testdemo.io.Testio;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,12 +42,25 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
  *
  */
 public class ActivityA extends Activity {
-
+    private static final String TAG = "Test";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
-        TestSet.TestLinkedHashSet();
+        TestQueue.TestArrayDeque();
+
+        TestExecption testExecption=new TestExecption();
+        try {
+            testExecption.TestExecption();
+        } catch (TestExecption.MyExecption myExecption) {
+            myExecption.printStackTrace();
+        }
+        Log.i(TAG, "onCreate: "+TestExecption.TestFinally());
+
+        Testio.TestFile(this);
+        Testio.TestSer(this);
+        Testio.TestParce();
+//        testExecption.TestRuntimeExecption();
         findViewById(R.id.bt_jump).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

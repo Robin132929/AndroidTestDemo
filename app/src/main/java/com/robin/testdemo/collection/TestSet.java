@@ -74,7 +74,7 @@ public class TestSet {
       linkedHashSet.add(9);
 
         for (Integer integer : linkedHashSet) {
-            Log.i(TAG, "TestLinkedHashSet: "+integer);
+            Log.i(TAG, "TestLinkedHashSet: "+integer    );
         }
     }
 }

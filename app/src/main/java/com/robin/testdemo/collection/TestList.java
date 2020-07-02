@@ -7,12 +7,12 @@ import java.util.Stack;
 import java.util.Vector;
 
 public class TestList {
-    List<Integer> arrayList=new ArrayList<>();
-    List<Integer> linkedList=new LinkedList<>();
-    List<Integer> stack=new Stack<>();
+   static List<Integer> arrayList=new ArrayList<>();
+   static List<Integer> linkedList=new LinkedList<>();
+   static List<Integer> stack=new Stack<>();
 
     public static void TestArrayList(){
-
+        arrayList.add(null);
     }
 
     public static void TestLinkedList(){
