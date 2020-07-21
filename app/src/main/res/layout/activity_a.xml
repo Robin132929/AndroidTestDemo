@@ -32,4 +32,10 @@
         android:id="@+id/bt_2"
         android:text="@string/jump_b"
         />
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>

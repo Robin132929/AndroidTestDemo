@@ -7,9 +7,12 @@
     tools:context=".activityjump.ActivityB">
 
     <TextView
+        android:layout_gravity="center"
+        android:text="aaaaaaa"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_height="200dp"
         android:id="@+id/tv"
-        tools:ignore="MissingConstraints" />
+       />
 
 </LinearLayout>

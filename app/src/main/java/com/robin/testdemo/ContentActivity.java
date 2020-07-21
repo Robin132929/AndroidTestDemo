@@ -70,6 +70,8 @@ public class ContentActivity extends Activity {
                 }
             }
         });
+
+
     }
 
 //    public class Stub extends android.os.Binder implements IPlusServer {

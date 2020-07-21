@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startActivity(new Intent(this,ContentActivity.class));
+
         findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,8 +108,13 @@ public class MainActivity extends Activity {
         registerReceiver(receiver,filter);//注册广播接收器
 
 
+
     }
 
+
+    public void st(Context context){
+        context.startActivity(new Intent());
+    }
     public class SmsReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {

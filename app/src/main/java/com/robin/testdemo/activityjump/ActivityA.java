@@ -5,14 +5,22 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Messenger;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
@@ -20,12 +28,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.robin.testdemo.MainActivity;
+import com.robin.testdemo.MySerivce;
 import com.robin.testdemo.R;
 import com.robin.testdemo.collection.TestQueue;
 import com.robin.testdemo.collection.TestSet;
 import com.robin.testdemo.execption.TestExecption;
 import com.robin.testdemo.io.Testio;
 
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -43,34 +53,114 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
  */
 public class ActivityA extends Activity {
     private static final String TAG = "Test";
+    Messenger service1=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
-        TestQueue.TestArrayDeque();
 
-        TestExecption testExecption=new TestExecption();
-        try {
-            testExecption.TestExecption();
-        } catch (TestExecption.MyExecption myExecption) {
-            myExecption.printStackTrace();
-        }
-        Log.i(TAG, "onCreate: "+TestExecption.TestFinally());
-
-        Testio.TestFile(this);
-        Testio.TestSer(this);
-        Testio.TestParce();
+//        TestQueue.TestArrayDeque();
+//
+//        TestExecption testExecption=new TestExecption();
+//        try {
+//            testExecption.TestExecption();
+//        } catch (TestExecption.MyExecption myExecption) {
+//            myExecption.printStackTrace();
+//        }
+//        Log.i(TAG, "onCreate: "+TestExecption.TestFinally());
+//
+//        Testio.TestFile(this);
+//        Testio.TestSer(this);
+//        Testio.TestParce();
 //        testExecption.TestRuntimeExecption();
         findViewById(R.id.bt_jump).setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ActivityA.this, ActivityA.class);
+
+//                Intent intent=new Intent(ActivityA.this, ActivityB.class);
+//                Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("qqnews://article_9527"));
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//                startForegroundService(new Intent(ActivityA.this, MySerivce.class));
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ActivityA.this.startService(new Intent(ActivityA.this, MySerivce.class));
+//                        Log.i(TAG, "run: robin start service background");
+//                    }
+//                },65000);
+//                ServiceConnection connection=new ServiceConnection() {
+//                    @Override
+//                    public void onServiceConnected(ComponentName name, IBinder service) {
+//                        service1=new Messenger(service);
+//
+//                    }
+//
+//                    @Override
+//                    public void onServiceDisconnected(ComponentName name) {
+//
+//                    }
+//                };
+//                Log.i(TAG, "onClick:& "+(Intent.FLAG_ACTIVITY_NEW_TASK));
+                Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("robin://article_9527?nm=20200713A049FL00&from=gaot71&adfrom=push"));
+//                intent.setAction("com.robin.testdemo.AB");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                String type=intent.resolveType(ActivityA.this);
+
+                Log.i(TAG, "TransactionTooLargeException "+type+" data ");
+
                 startActivity(intent);
             }
         });
+//a onpause b onstart b oncreate b oresume a onstop
+
     }
 
-//    private static final int NOT_NOTICE = 2;//如果勾选了不再询问
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState: "+outState.toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState: "+savedInstanceState.get("2131230791").toString());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop: ");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: ");
+        Environment.getRootDirectory();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.i(TAG, "onNewIntent: "+intent.toUri(0));
+    }
+
+    //    private static final int NOT_NOTICE = 2;//如果勾选了不再询问
 //    private AlertDialog alertDialog;
 //    private AlertDialog mDialog;
 //    TextView tv;

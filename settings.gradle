@@ -1,2 +1,3 @@
 include ':app', ':androidxorsupport'
 rootProject.name='AndroidTestDemo'
+include ':lib'

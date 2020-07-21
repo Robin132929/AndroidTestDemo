@@ -1,11 +1,13 @@
 package com.robin.testdemo.collection;
 
 import android.util.ArrayMap;
+import android.util.SparseArray;
 
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
+import java.util.Properties;
 import java.util.TreeMap;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,7 +24,8 @@ public class TestMap {
 
 
     public static void TestHashMap(){
-
+//        SparseArray
+        Properties pro = new Properties() ;
     }
 
 
